@@ -43,18 +43,22 @@ function App() {
         fetchPrefectures();
         fetchComposition();
     }, []);
+
+    const handleCheckbox = (prefCode: number) => {
+
+    }
     return (
         // console.log(prefecture.prefName)
         <>
         {
-            console.log(composition)
+            console.log(composition[0].data[0].value)
         }
                 {prefectures.length > 0 ? (
                   <div className="checkbox-container">
                     {prefectures.map((prefecture) => (
                       <div key={prefecture.prefCode} className='checkbox-item'>
                         <label>
-                          <input type="checkbox" name="prefecture" value={prefecture.prefCode} />
+                          <input type="checkbox" name="prefecture" value={prefecture.prefCode} onChange={()=> handleCheckbox(prefecture.prefCode)}/>
                           {prefecture.prefName}
                         </label>
                       </div>
