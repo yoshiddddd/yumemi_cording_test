@@ -1,0 +1,11 @@
+.checkbox-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .checkbox-item {
+    flex: 1 0 10%; /* 10%幅を指定して1列に10個配置 */
+    box-sizing: border-box;
+    padding: 5px;
+  }
+  
