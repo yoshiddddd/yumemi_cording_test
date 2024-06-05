@@ -11,11 +11,27 @@ type Prefecture = {
     value: number;
 
   };
+  type PopulationComposition = {
+    year: number;
+    value: number;
+  };
+  type PopulationCompositionWithLabel = {
+    label: string;
+    data: {
+      year: number;
+      value: number;
+    }[];
+  };
+  type PopulationCompositionArray = PopulationCompositionWithLabel[][];
+  
 function App() {
     const [prefectures, setPrefectures] = useState<Prefecture[]>([]);
     const [composition, setComposition] = useState<any[]>([]);
     const [selectedPrefectures, setSelectedPrefectures] = useState<number[]>([]);
-    const [prefectureData, setPrefectureData] = useState<Record<number,prefectureData[]>>({});
+    const [prefectureData, setPrefectureData] = useState<Record<number,PopulationCompositionWithLabel[]>>({});
+    
+    // const [showPrefectureData, setShowPrefectureData] = useState<PopulationCompositionArray>([]);
+    const [showPrefectureData, setShowPrefectureData] = useState<PopulationCompositionWithLabel[][]>([]);
     const [Loading, setLoading] = useState<boolean>(true);
     const API_KEY = process.env.REACT_APP_RESAS_API_KEY
     useEffect(() => {
@@ -41,7 +57,7 @@ function App() {
         };
         fetchPrefectures();
         // fetchComposition();
-    }, []);
+    }, [API_KEY]);
 
     const fetchComposition = async (prefCode: number) => {
         try{
@@ -59,6 +75,12 @@ function App() {
             console.error(e);
         }
     }
+    useEffect(() => {
+        const newShowPrefectureData = selectedPrefectures.map(prefCode => prefectureData[prefCode]).filter(Boolean);
+        setShowPrefectureData(newShowPrefectureData);
+        // console.log(newShowPrefectureData);
+    }, [prefectureData,selectedPrefectures]); 
+
 
     if(Loading){
         return <div>Loading...</div>
@@ -71,19 +93,22 @@ function App() {
                 return [...prev, prefCode];
             }
         });
-        const data= await fetchComposition(prefCode);
         if(!( prefCode in prefectureData)){        
+            const data= await fetchComposition(prefCode);
+            // console.log(prefectureData);
             setPrefectureData(prev =>{
                 return {...prev, [prefCode]: data};
             }
             );
         }
+
     }
     return (
         // console.log(prefecture.prefName)
         <>
         {
-            console.log(prefectureData)
+            // console.log(selectedPrefectures)
+            console.log(showPrefectureData)
         }
                 {prefectures.length > 0 ? (
                   <div className="checkbox-container">
@@ -100,7 +125,7 @@ function App() {
                   <div>Loading...</div>
                 )}
 
-        {/* {prefectureData.map((data, index) => (
+        {showPrefectureData.map((data, index) => (
             <ComposedChart
             key={index}
             width={1200}
@@ -117,7 +142,7 @@ function App() {
                 dataKey="value" //Array型のデータの、Y軸に表示したい値のキーを指定
             />
             </ComposedChart>
-        ))} */}
+        ))}
         {/* <ComposedChart
             width={1200}
             height={250}
