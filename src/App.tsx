@@ -6,15 +6,6 @@ type Prefecture = {
     prefCode: number;
     prefName: string;
   };
-  type prefectureData = {
-    year: number;
-    value: number;
-
-  };
-  type PopulationComposition = {
-    year: number;
-    value: number;
-  };
   type PopulationCompositionWithLabel = {
     label: string;
     data: {
@@ -25,12 +16,9 @@ type Prefecture = {
 
 function App() {
     const [prefectures, setPrefectures] = useState<Prefecture[]>([]);
-    const [composition, setComposition] = useState<any[]>([]);
     const [selectedPrefectures, setSelectedPrefectures] = useState<number[]>([]);
     const [prefectureData, setPrefectureData] = useState<Record<number,PopulationCompositionWithLabel[]>>({});
     const [selectedKey, setSelectedKey] = useState<number>(0);
-    
-    // const [showPrefectureData, setShowPrefectureData] = useState<PopulationCompositionArray>([]);
     const [showPrefectureData, setShowPrefectureData] = useState<PopulationCompositionWithLabel[][]>([]);
     const [Loading, setLoading] = useState<boolean>(true);
     const API_KEY = process.env.REACT_APP_RESAS_API_KEY
@@ -84,6 +72,7 @@ function App() {
     if(Loading){
         return <div>Loading...</div>
     }
+
     const handleCheckbox = async (prefCode: number) => {
         setSelectedPrefectures(prev => {
             if(prev.includes(prefCode)){
@@ -111,6 +100,13 @@ function App() {
         2: '生産年齢人口',
         3: '老年人口',
       };
+      const combinedData = showPrefectureData[0]&&showPrefectureData[0][selectedKey].data.map((item, index) => {
+        const newItem: { [key: string]: number } = { year: item.year };
+        showPrefectureData.forEach((dataArray, dataIndex) => {
+          newItem[`value${dataIndex}`] = dataArray[selectedKey].data[index]?.value || 0;
+        });
+        return newItem;
+      });
 
     return (
         // console.log(prefecture.prefName)
@@ -118,7 +114,7 @@ function App() {
         {
             // console.log(selectedPrefectures)
             // console.log(showPrefectureData)
-            console.log(selectedKey)
+            console.log(combinedData)
         }
                 {prefectures.length > 0 ? (
                   <div className="checkbox-container">
@@ -152,7 +148,31 @@ function App() {
     </div>
 
 
-        {showPrefectureData.map((data, index) => (
+
+    <ComposedChart
+      width={1200}
+      height={250}
+    //   data={showPrefectureData[0]&&showPrefectureData[0][selectedKey].data}
+    data={combinedData}
+    >
+      <XAxis dataKey="year" />
+      <YAxis />
+      <Tooltip />
+      {showPrefectureData.map((_, index) => (
+        <Line
+          key={index}
+          type="monotone"
+          dataKey={`value${index}`}
+          name={`Series ${index + 1}`} // シリーズ名を追加（オプション）
+          stroke={`hsl(${index * 40}, 70%, 50%)`} // 線の色を動的に設定（オプション）
+        />
+      ))}
+    </ComposedChart>
+
+
+
+
+        {/* {showPrefectureData.map((data, index) => (
             <ComposedChart
             key={index}
             width={1200}
@@ -169,27 +189,7 @@ function App() {
                 dataKey="value" //Array型のデータの、Y軸に表示したい値のキーを指定
             />
             </ComposedChart>
-        ))}
-        {/* <ComposedChart
-            width={1200}
-            height={250}
-            data={prefectureData}
-            >
-        <XAxis
-        dataKey={'year'}
-        type="category"
-        // ticks={allYears}
-        />
-        <YAxis/>
-        <Tooltip/>
-        <Line //面積を表すグラフ
-            // type="monotone"  //グラフが曲線を描くように指定。default値は折れ線グラフ
-            dataKey="value" //Array型のデータの、Y軸に表示したい値のキーを指定
-            // stroke="#00aced" ////グラフの線の色を指定
-            // fillOpacity={1}  ////グラフの中身の薄さを指定
-            // fill="rgba(0, 172, 237, 0.2)"  //グラフの色を指定
-        />
-        </ComposedChart> */}
+        ))} */}
         </>
   );
 }
