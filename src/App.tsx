@@ -18,17 +18,17 @@ type Prefecture = {
   type PopulationCompositionWithLabel = {
     label: string;
     data: {
-      year: number;
-      value: number;
+        year: number;
+        value: number;
     }[];
-  };
-  type PopulationCompositionArray = PopulationCompositionWithLabel[][];
-  
+};
+
 function App() {
     const [prefectures, setPrefectures] = useState<Prefecture[]>([]);
     const [composition, setComposition] = useState<any[]>([]);
     const [selectedPrefectures, setSelectedPrefectures] = useState<number[]>([]);
     const [prefectureData, setPrefectureData] = useState<Record<number,PopulationCompositionWithLabel[]>>({});
+    const [selectedKey, setSelectedKey] = useState<number>(0);
     
     // const [showPrefectureData, setShowPrefectureData] = useState<PopulationCompositionArray>([]);
     const [showPrefectureData, setShowPrefectureData] = useState<PopulationCompositionWithLabel[][]>([]);
@@ -70,7 +70,6 @@ function App() {
             });
             const data = await response.json();
             return data.result.data;
-            // setComposition(data.result.data);
         }catch(e){
             console.error(e);
         }
@@ -95,7 +94,6 @@ function App() {
         });
         if(!( prefCode in prefectureData)){        
             const data= await fetchComposition(prefCode);
-            // console.log(prefectureData);
             setPrefectureData(prev =>{
                 return {...prev, [prefCode]: data};
             }
@@ -103,12 +101,24 @@ function App() {
         }
 
     }
+        const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+            const key = parseInt(event.target.value, 10);
+            setSelectedKey(key);
+          };
+      const options: { [key: number]: string } = {
+        0: '総人口',
+        1: '年少人口',
+        2: '生産年齢人口',
+        3: '老年人口',
+      };
+
     return (
         // console.log(prefecture.prefName)
         <>
         {
             // console.log(selectedPrefectures)
-            console.log(showPrefectureData)
+            // console.log(showPrefectureData)
+            console.log(selectedKey)
         }
                 {prefectures.length > 0 ? (
                   <div className="checkbox-container">
@@ -125,12 +135,29 @@ function App() {
                   <div>Loading...</div>
                 )}
 
+<div>
+      <label htmlFor="population-dropdown">人口区分: </label>
+      <select
+        id="population-dropdown"
+        value={selectedKey}
+        onChange={handleChange}
+      >
+        {Object.entries(options).map(([key, value]) => (
+          <option key={key} value={key}>
+            {value}
+          </option>
+        ))}
+      </select>
+      <p>選択された区分: {options[selectedKey]}</p>
+    </div>
+
+
         {showPrefectureData.map((data, index) => (
             <ComposedChart
             key={index}
             width={1200}
             height={250}
-            data={data[0].data}
+            data={data[selectedKey].data}
             >
             <XAxis
             dataKey={'year'}
