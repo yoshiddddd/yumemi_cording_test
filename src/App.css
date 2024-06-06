@@ -1,11 +1,47 @@
-.checkbox-container {
+/* .checkbox-container {
     display: flex;
     flex-wrap: wrap;
+  } */
+  
+  /* .checkbox-item {
+    flex: 1 0 10%; 
+    box-sizing: border-box;
+    padding: 5px;
+  } */
+  
+  /* 全体のレイアウトを中央揃え */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  .checkbox-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
   }
   
   .checkbox-item {
-    flex: 1 0 10%; /* 10%幅を指定して1列に10個配置 */
-    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+  }
+  
+  .checkbox {
+    margin-right: 5px;
+  }
+  
+  .population-dropdown {
+    margin: 10px 0;
     padding: 5px;
+    font-size: 16px;
+  }
+  
+  .composed-chart {
+    margin-top: 20px;
   }
   

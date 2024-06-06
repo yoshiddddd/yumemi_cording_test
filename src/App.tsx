@@ -2,6 +2,7 @@ import React ,{useEffect, useState}from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Area, ComposedChart, Line, Tooltip, XAxis, YAxis } from 'recharts';
+import { Legend } from 'recharts';
 type Prefecture = {
     prefCode: number;
     prefName: string;
@@ -109,19 +110,14 @@ function App() {
       });
 
     return (
-        // console.log(prefecture.prefName)
         <>
-        {
-            // console.log(selectedPrefectures)
-            // console.log(showPrefectureData)
-            console.log(combinedData)
-        }
+        {console.log(showPrefectureData)}
                 {prefectures.length > 0 ? (
                   <div className="checkbox-container">
                     {prefectures.map((prefecture) => (
                       <div key={prefecture.prefCode} className='checkbox-item'>
                         <label>
-                          <input type="checkbox" name="prefecture" value={prefecture.prefCode} onChange={()=> handleCheckbox(prefecture.prefCode)}/>
+                          <input type="checkbox" className='checkbox' name="prefecture" value={prefecture.prefCode} onChange={()=> handleCheckbox(prefecture.prefCode)}/>
                           {prefecture.prefName}
                         </label>
                       </div>
@@ -137,6 +133,7 @@ function App() {
         id="population-dropdown"
         value={selectedKey}
         onChange={handleChange}
+        className='population-dropdown'
       >
         {Object.entries(options).map(([key, value]) => (
           <option key={key} value={key}>
@@ -151,19 +148,21 @@ function App() {
 
     <ComposedChart
       width={1200}
-      height={250}
+      height={400}
+      className='composed-chart'
     //   data={showPrefectureData[0]&&showPrefectureData[0][selectedKey].data}
     data={combinedData}
     >
       <XAxis dataKey="year" />
       <YAxis />
       <Tooltip />
+      <Legend />
       {showPrefectureData.map((_, index) => (
         <Line
           key={index}
           type="monotone"
           dataKey={`value${index}`}
-          name={`Series ${index + 1}`} // シリーズ名を追加（オプション）
+          name={prefectures.find(p => p.prefCode === selectedPrefectures[index])?.prefName || `Series ${index + 1}`} // シリーズ名を追加
           stroke={`hsl(${index * 40}, 70%, 50%)`} // 線の色を動的に設定（オプション）
         />
       ))}
