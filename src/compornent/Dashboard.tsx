@@ -3,10 +3,9 @@ import '../App.css';
 import { CheckBox } from './CheckBox';
 import { SelectPopulation } from './SelectPopulation';
 import { Chart } from './Chart';
-import { Area, ComposedChart, Line, Tooltip, XAxis, YAxis } from 'recharts';
-import { Legend } from 'recharts';
 import { Prefecture, PopulationCompositionWithLabel } from '../types/type';
 import { options } from '../types/options';
+
 export const Dashboard = () => {
     const [prefectures, setPrefectures] = useState<Prefecture[]>([]);
     const [selectedPrefectures, setSelectedPrefectures] = useState<number[]>([]);
@@ -55,7 +54,7 @@ export const Dashboard = () => {
     useEffect(() => {
         const newShowPrefectureData = selectedPrefectures.map(prefCode => prefectureData[prefCode]).filter(Boolean);
         setShowPrefectureData(newShowPrefectureData);
-        // console.log(newShowPrefectureData);
+        console.log(newShowPrefectureData);
     }, [prefectureData,selectedPrefectures]); 
 
 
@@ -78,7 +77,6 @@ export const Dashboard = () => {
             }
             );
         }
-
     }
         const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
             const key = parseInt(event.target.value, 10);

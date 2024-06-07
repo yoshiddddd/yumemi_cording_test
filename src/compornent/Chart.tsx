@@ -1,13 +1,5 @@
 import { ComposedChart, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts';
-import { PopulationCompositionWithLabel } from '../types/type';
-type ChartProps = {
-    selectedPrefectures: number[];
-    prefectures: { prefCode: number; prefName: string }[];
-    showPrefectureData: PopulationCompositionWithLabel[][];
-    selectedKey: number;
-}
-
-
+import {ChartProps} from '../types/type';
 
 export const Chart = (props: ChartProps) => {
     const { selectedPrefectures, prefectures, showPrefectureData, selectedKey} = props;

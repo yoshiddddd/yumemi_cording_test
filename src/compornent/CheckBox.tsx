@@ -1,8 +1,5 @@
 import {Prefecture} from '../types/type';
-type CheckBoxProps = {
-    prefectures: Prefecture[];
-    handleCheckbox: (prefCode: number) => void;
-  };
+import {CheckBoxProps} from '../types/type';
 
 
 export const CheckBox = (props: CheckBoxProps) => {

@@ -1,11 +1,4 @@
-
-type SelectPopulationProps = {
-    selectedKey: number;
-    handleChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-    options: { [key: number]: string };
-
-}
-
+import { SelectPopulationProps } from "../types/type";
 
 export const SelectPopulation = (props: SelectPopulationProps) => {
     const {selectedKey, handleChange, options} = props;
