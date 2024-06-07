@@ -42,6 +42,15 @@ body {
   }
   
   .composed-chart {
-    margin-top: 20px;
+
+    /* margin-top: 20px; */
+
   }
+  /* styles.css */
+.chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
   
