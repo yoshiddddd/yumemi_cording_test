@@ -1,5 +1,6 @@
 import React ,{useEffect, useState}from 'react';
-import '../App.css';
+// import '../App.css';
+import '../style/Dashboard.css';
 import { CheckBox } from './CheckBox';
 import { SelectPopulation } from './SelectPopulation';
 import { Chart } from './Chart';
