@@ -1,9 +1,9 @@
 import { SelectPopulationProps } from "../types/type";
-
+import '../style/SelectPopulation.css';
 export const SelectPopulation = (props: SelectPopulationProps) => {
     const {selectedKey, handleChange, options} = props;
     return(
-<div>
+<div className="select-population">
       <label htmlFor="population-dropdown">人口区分: </label>
       <select
         id="population-dropdown"

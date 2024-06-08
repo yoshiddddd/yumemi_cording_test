@@ -1,0 +1,13 @@
+.select-population {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+  padding: 15px;
+  font-size: 25px;
+
+}
+.population-dropdown {
+    
+    font-size: 25px;
+  }
+  
