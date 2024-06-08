@@ -1,6 +1,6 @@
 import { ComposedChart, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import {ChartProps} from '../types/type';
-
+import '../style/Chart.css';
 export const Chart = (props: ChartProps) => {
     const { selectedPrefectures, prefectures, showPrefectureData, selectedKey} = props;
     const combinedData = showPrefectureData[0]&&showPrefectureData[0][selectedKey].data.map((item, index) => {
@@ -11,10 +11,13 @@ export const Chart = (props: ChartProps) => {
         return newItem;
       });
 
+    if(!combinedData){
+        return <div className='not-select-prefecture'>都道府県を選択してください。</div>
+    }
     return(
         <div className="chart-container">
     <ComposedChart
-    width={1400}
+    width={1200}
     height={400}
       className='composed-chart'
     data={combinedData}
