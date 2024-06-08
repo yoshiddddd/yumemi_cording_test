@@ -4,7 +4,7 @@ import { CheckBox } from './CheckBox';
 import { SelectPopulation } from './SelectPopulation';
 import { Chart } from './Chart';
 import { Prefecture, PopulationCompositionWithLabel } from '../types/type';
-import { options } from '../types/options';
+import { options } from '../types/utils';
 
 export const Dashboard = () => {
     const [prefectures, setPrefectures] = useState<Prefecture[]>([]);
@@ -86,6 +86,8 @@ export const Dashboard = () => {
 
     return (
         <>
+        <header>人口推移グラフ</header>
+        <h2>都道府県を選択</h2>
         <CheckBox prefectures={prefectures} handleCheckbox={handleCheckbox} />
         <SelectPopulation selectedKey={selectedKey} handleChange={handleChange} options={options} />
         <Chart selectedPrefectures={selectedPrefectures} prefectures={prefectures} showPrefectureData={showPrefectureData} selectedKey={selectedKey}/>
