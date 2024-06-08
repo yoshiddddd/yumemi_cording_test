@@ -17,7 +17,6 @@ export const SelectPopulation = (props: SelectPopulationProps) => {
           </option>
         ))}
       </select>
-      <p>選択された区分: {options[selectedKey]}</p>
     </div>
 
     );
