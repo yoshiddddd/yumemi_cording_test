@@ -5,3 +5,9 @@
     justify-content: center;
     font-size: 35px;
 }
+.chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  

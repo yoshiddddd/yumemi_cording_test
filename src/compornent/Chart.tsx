@@ -22,8 +22,8 @@ export const Chart = (props: ChartProps) => {
       className='composed-chart'
     data={combinedData}
     >
-      <XAxis dataKey="year" />
-      <YAxis width={100} />
+      <XAxis dataKey="year" label={{ value: '年度', position: 'insideBottomRight', offset: -5 }} />
+      <YAxis width={100} label={{ value: '人口数', angle: -90, position: 'insideLeft' }}  />
       <Tooltip />
       <Legend />
       {showPrefectureData.map((_, index) => (
@@ -32,7 +32,7 @@ export const Chart = (props: ChartProps) => {
           type="monotone"
           dataKey={`value${index}`}
           name={prefectures.find(p => p.prefCode === selectedPrefectures[index])?.prefName || `Series ${index + 1}`} // シリーズ名を追加
-          stroke={`hsl(${index * 40}, 70%, 50%)`} // 線の色を動的に設定（オプション）
+          stroke={`hsl(${index * 40}, 70%, 50%)`} 
         />
       ))}
     </ComposedChart>
