@@ -1,3 +1,4 @@
+import React from 'react';
 import { ComposedChart, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import {ChartProps} from '../types/type';
 import '../style/Chart.css';
