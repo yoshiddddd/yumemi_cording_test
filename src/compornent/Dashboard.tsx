@@ -37,6 +37,7 @@ export const Dashboard = () => {
         setPrefectures(data.result);
       } catch (e) {
         console.error(e);
+        alert("都道府県情報の取得に失敗しました。")
       } finally {
         setLoading(false);
       }
@@ -60,6 +61,7 @@ export const Dashboard = () => {
       return data.result.data;
     } catch (e) {
       console.error(e);
+      alert("人口情報の取得に失敗しました。")
     }
   };
   useEffect(() => {
