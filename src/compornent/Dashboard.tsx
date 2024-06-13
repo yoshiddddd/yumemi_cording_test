@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import '../App.css';
 import "../style/Dashboard.css";
 import { CheckBox } from "./CheckBox";
 import { SelectPopulation } from "./SelectPopulation";
@@ -30,14 +29,14 @@ export const Dashboard = () => {
             headers: {
               "Content-Type": "application/json",
               "X-API-KEY": API_KEY || "",
-            } as HeadersInit, // ここで型アサーションを追加
+            } as HeadersInit, 
           },
         );
         const data = await response.json();
         setPrefectures(data.result);
       } catch (e) {
         console.error(e);
-        alert("都道府県情報の取得に失敗しました。")
+        alert("都道府県情報の取得に失敗しました。");
       } finally {
         setLoading(false);
       }
@@ -61,7 +60,7 @@ export const Dashboard = () => {
       return data.result.data;
     } catch (e) {
       console.error(e);
-      alert("人口情報の取得に失敗しました。")
+      alert("人口情報の取得に失敗しました。");
     }
   };
   useEffect(() => {

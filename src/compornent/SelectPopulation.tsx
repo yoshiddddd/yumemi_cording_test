@@ -1,4 +1,3 @@
-import React from "react";
 import { SelectPopulationProps } from "../types/type";
 import "../style/SelectPopulation.css";
 export const SelectPopulation = (props: SelectPopulationProps) => {

@@ -1,4 +1,3 @@
-import React from "react";
 import { Prefecture } from "../types/type";
 import { CheckBoxProps } from "../types/type";
 import { regions } from "../types/utils";
