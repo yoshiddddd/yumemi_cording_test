@@ -26,8 +26,6 @@ describe("template spec", () => {
       cy.wrap($el).should("be.checked");
     });
 
-    cy.wait(500);
-
     cy.get("select").each(($el, index) => {
       cy.wrap($el).find("option").should("have.length.greaterThan", 1);
 
