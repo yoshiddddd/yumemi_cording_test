@@ -68,7 +68,6 @@ export const Dashboard = () => {
       .map((prefCode) => prefectureData[prefCode])
       .filter(Boolean);
     setShowPrefectureData(newShowPrefectureData);
-    console.log(newShowPrefectureData);
   }, [prefectureData, selectedPrefectures]);
 
   if (Loading) {
