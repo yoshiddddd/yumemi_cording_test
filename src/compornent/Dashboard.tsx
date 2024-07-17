@@ -38,6 +38,7 @@ export const Dashboard = () => {
         console.error(e);
         alert("都道府県情報の取得に失敗しました。");
       } finally {
+        console.log(prefectures);
         setLoading(false);
       }
     };

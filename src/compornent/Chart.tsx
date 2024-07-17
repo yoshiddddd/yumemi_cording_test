@@ -21,7 +21,6 @@ export const Chart = (props: ChartProps) => {
       });
       return newItem;
     });
-
   if (!combinedData) {
     return (
       <div className="not-select-prefecture">都道府県を選択してください。</div>
@@ -35,6 +34,7 @@ export const Chart = (props: ChartProps) => {
         className="composed-chart"
         data={combinedData}
       >
+        {console.log(combinedData)}
         <XAxis
           dataKey="year"
           label={{ value: "年度", position: "insideBottomRight", offset: -5 }}
